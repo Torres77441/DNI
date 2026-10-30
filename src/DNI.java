@@ -10,8 +10,50 @@ public class DNI {
         letra = LETRAS[number%23];
     }
 
+    public DNI(int number, char letra) {
+        this.letra = letra;
+        char realLetter = LETRAS[number % 23];
+        if (realLetter != letra){
+            this.number = -number;
+        } else {
+            this.number = number;
+        }
+    }
+
+    public DNI (String str){
+        String strNumber = str.replaceAll("[^\\d]", "");
+        number = Integer.parseInt(strNumber);
+        letra = str.toUpperCase().charAt(str.length() - 1);
+        char realLetter = LETRAS[number % 23];
+        if (realLetter != letra){
+            number = -number;
+        }
+    }
+
+    public boolean isCorrect() {
+        return number >= 0;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+        char realLetter = LETRAS[number % 23];
+        if (realLetter != letra){
+            this.number = -this.number;
+        }
+    }
+
+    public static char letterForDni(int number){
+        return LETRAS[number % 23];
+    }
+
+    public static String  nifForDni(int number){
+        return number + "-" + letterForDni(number);
+    }
+
     @Override
     public String toString() {
         return number + "-" + letra;
     }
+
+
 }
